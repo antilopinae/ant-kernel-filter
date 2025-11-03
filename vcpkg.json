@@ -1,0 +1,19 @@
+{
+  "name": "image-processing-wrapper",
+  "version-string": "0.1.0",
+  "dependencies": [
+    "boost-system",
+    "fmt",
+    "argparse",
+    "libpng",
+    "gtest"
+  ],
+  "vcpkg-configuration": {
+    "overlay-ports": [
+      "./vcpkg/ports"
+    ],
+    "overlay-triplets": [
+      "./vcpkg/triplets"
+    ]
+  }
+}
