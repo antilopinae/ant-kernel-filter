@@ -37,9 +37,9 @@ Print help:
    ```
 
 2. **Configure and build the project:**
-   The `build.sh` script automates this process
+   The `utils/cmake-build.sh` script automates this process
    ```bash
-   ./build.sh
+   bash ./utils/cmake-build.sh
    cd build
    ```
    Alternatively, you can run the commands manually:
