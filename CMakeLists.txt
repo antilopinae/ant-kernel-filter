@@ -30,12 +30,14 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_C_STANDARD 17)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+set(BUILD_SHARED_LIBS OFF CACHE BOOL "Build only static libraries" FORCE)
+
 # dependencies
 # find_package(PkgConfig REQUIRED)
-find_package(Boost REQUIRED COMPONENTS system)
+find_package(Boost REQUIRED COMPONENTS system asio)
 find_package(fmt REQUIRED)
 find_package(argparse CONFIG REQUIRED)
-find_package(PNG REQUIRED)
 
 # pkg_check_modules(LIBBPF REQUIRED IMPORTED_TARGET libbpf)
 

@@ -1,11 +1,11 @@
 {
-  "name": "image-processing-wrapper",
+  "name": "ant-kernel-filter-wrapper",
   "version-string": "0.1.0",
   "dependencies": [
     "boost-system",
+    "boost-asio",
     "fmt",
     "argparse",
-    "libpng",
     "gtest"
   ],
   "vcpkg-configuration": {
