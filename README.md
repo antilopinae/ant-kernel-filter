@@ -1,2 +1,53 @@
 # ant-kernel-filter
 
+* A small project that combines our view how to read the Parallel Programming course, taught in the 3rd year at
+  university
+
+
+## Usage
+
+### General format:
+
+```bash
+./ant-kernel-filter <LAB_COMMAND> <SUBCOMMAND> [OPTIONS...]
+```
+
+### Help
+
+Print help:
+
+```bash
+./ant-kernel-filter --help
+```
+
+## Requirements
+
+* **Build Tools:**
+    * A C++23 compliant compiler (GCC 13+ or Clang 16+)
+    * `CMake` (version 3.23+)
+* **Dependencies:**
+    * All dependencies are managed via `vcpkg` and are installed automatically during the build process
+
+## Building the Project
+
+1. **Clone the repository with submodules:**
+   ```bash
+   git clone --recursive https://github.com/antilopinae/ant-kernel-filter
+   cd ant-kernel-filter
+   ```
+
+2. **Configure and build the project:**
+   The `build.sh` script automates this process
+   ```bash
+   ./build.sh
+   cd build
+   ```
+   Alternatively, you can run the commands manually:
+   ```bash
+   # Configure the project, specifying the static triplet
+   cmake -B build -S .
+
+   # Build the project
+   cmake --build build -j$(nproc)
+   cd build
+   ```
