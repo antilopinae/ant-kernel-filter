@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.26.0 FATAL_ERROR)
 
+include(AntGlobalDefinitions REQUIRED)
+
 add_library(${PROJECT_NAME}-core STATIC
         delete_me.cpp
 )
@@ -28,5 +30,4 @@ target_link_libraries(${PROJECT_NAME}-core PUBLIC
         pthread
 )
 
-include(AntDefines REQUIRED)
-add_ant_global_definitions(${PROJECT_NAME}-core)
+target_add_ant_global_definitions(${PROJECT_NAME}-core)
