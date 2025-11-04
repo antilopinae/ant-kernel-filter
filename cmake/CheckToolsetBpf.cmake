@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.26.0 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.26.0)
 
 # tools
 set(CLANG_EXECUTABLE "" CACHE FILEPATH "Path to clang executable")
