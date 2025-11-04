@@ -1,8 +1,6 @@
 # ant-kernel-filter
 
-* A small project that combines our view how to read the Parallel Programming course, taught in the 3rd year at
-  university
-
+* A small project that filters and sends kernel messages
 
 ## Usage
 

@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.26.0 FATAL_ERROR)
 
+include(AntGlobalDefinitions REQUIRED)
+
 # main executable
 add_executable(${PROJECT_NAME}
         main.cpp
@@ -26,5 +28,4 @@ target_link_libraries(${PROJECT_NAME} PUBLIC
         prometheus-cpp::util
 )
 
-include(AntDefines REQUIRED)
-add_ant_global_definitions(${PROJECT_NAME})
+target_add_ant_global_definitions(${PROJECT_NAME})
