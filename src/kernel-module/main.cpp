@@ -84,7 +84,8 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    mmap_buffer_t *mapped_buffer = (mmap_buffer_t *) mmap(NULL, ANT_MMAP_BUF_SIZE, PROT_READ | PROT_WRITE, MAP_SHARED,
+    mmap_buffer_t *mapped_buffer = (mmap_buffer_t *) mmap(NULL, ANT_MMAP_BUF_SIZE, PROT_READ | PROT_WRITE,
+                                                          MAP_SHARED,
                                                           fd,
                                                           0);
     if (mapped_buffer == MAP_FAILED) {
