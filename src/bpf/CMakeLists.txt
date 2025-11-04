@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.26.0 FATAL_ERROR)
 
 include(CheckToolsetBpf REQUIRED)
+include(AntGlobalDefinitions REQUIRED)
 
 if (NOT SHELL OR NOT CLANG OR NOT BPFTOOL)
     message(FATAL_ERROR
@@ -72,3 +73,5 @@ target_link_libraries(${BPF_TARGET_NAME} PRIVATE
 )
 
 add_dependencies(${BPF_TARGET_NAME} generate_and_compile_bpf)
+
+target_add_ant_global_definitions(${BPF_TARGET_NAME})
