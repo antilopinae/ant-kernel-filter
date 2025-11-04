@@ -1,4 +1,6 @@
 #!/bin/bash
+
+# Setting exit on error
 set -e
 
 cmake -B build -S .

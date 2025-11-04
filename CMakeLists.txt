@@ -5,20 +5,27 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 include(CCache OPTIONAL)
 include(NoInSourceBuilds OPTIONAL)
 
-option(USE_VCPKG_TOOLCHAIN "Use vcpkg toolchain file" ON)
+option(ANT_USE_VCPKG_TOOLCHAIN "Use vcpkg toolchain file" ON)
+option(ANT_ENABLE_TESTING "Include tests" ON)
+option(ANT_ENABLE_EBPF "Include eBPF program" ON)
 
-if (USE_VCPKG_TOOLCHAIN)
-    # set(VCPKG_OVERLAY_PORTS "${CMAKE_SOURCE_DIR}/vcpkg_ports")
+if (NOT UNIX)
+    if (WIN32 AND MINGW)
+        set(VCPKG_TARGET_TRIPLET "x64-mingw-static" CACHE STRING "vcpkg triplet" FORCE)
+    else ()
+        message(FATAL_ERROR
+                "\n"
+                "Not UNIX builds are not allowed.\n"
+        )
+    endif ()
+endif ()
+
+if (ANT_USE_VCPKG_TOOLCHAIN)
+    set(VCPKG_OVERLAY_PORTS "${CMAKE_SOURCE_DIR}/vcpkg-ports")
 
     if (NOT DEFINED CMAKE_TOOLCHAIN_FILE)
         set(CMAKE_TOOLCHAIN_FILE "${CMAKE_SOURCE_DIR}/vcpkg/scripts/buildsystems/vcpkg.cmake" CACHE FILEPATH "Vcpkg toolchain file")
     endif ()
-endif ()
-
-if (WIN32 AND MINGW)
-    set(VCPKG_TARGET_TRIPLET "x64-mingw-static" CACHE STRING "vcpkg triplet" FORCE)
-elseif (WIN32 AND MSVC)
-    set(VCPKG_TARGET_TRIPLET "x64-windows" CACHE STRING "vcpkg triplet" FORCE)
 endif ()
 
 # project setup
@@ -30,22 +37,28 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_C_STANDARD 17)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 
-set(CMAKE_POSITION_INDEPENDENT_CODE ON)
-set(BUILD_SHARED_LIBS OFF CACHE BOOL "Build only static libraries" FORCE)
+if (UNIX)
+    set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+    set(BUILD_SHARED_LIBS OFF CACHE BOOL "Build only static libraries" FORCE)
+endif ()
 
 # dependencies
-# find_package(PkgConfig REQUIRED)
 find_package(Boost REQUIRED COMPONENTS system asio)
 find_package(fmt REQUIRED)
 find_package(argparse CONFIG REQUIRED)
+find_package(nlohmann_json CONFIG REQUIRED)
 
-# pkg_check_modules(LIBBPF REQUIRED IMPORTED_TARGET libbpf)
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(LIBBPF REQUIRED IMPORTED_TARGET libbpf)
+pkg_check_modules(ZLIB REQUIRED IMPORTED_TARGET zlib)
 
 add_subdirectory(src/ctl)
 add_subdirectory(src/filter)
-add_subdirectory(src/kernel)
+add_subdirectory(src/kernel-module)
 
-option(ANT_ENABLE_TESTING "Include tests" OFF)
+if (ANT_ENABLE_EBPF)
+    add_subdirectory(src/bpf)
+endif ()
 
 if (ANT_ENABLE_TESTING)
     add_subdirectory(src/test)

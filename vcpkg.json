@@ -4,6 +4,8 @@
   "dependencies": [
     "boost-system",
     "boost-asio",
+    "nlohmann-json",
+    "libbpf",
     "fmt",
     "argparse",
     "gtest"

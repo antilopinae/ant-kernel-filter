@@ -6,10 +6,16 @@
 
 ## Usage
 
+The program requires superuser (root) privileges to load eBPF programs and kernel modules into the kernel.
+
+```bash
+sudo ./ant-kernel-filter
+```
+
 ### General format:
 
 ```bash
-./ant-kernel-filter <LAB_COMMAND> <SUBCOMMAND> [OPTIONS...]
+sudo ./ant-kernel-filter <LAB_COMMAND> <SUBCOMMAND> [OPTIONS...]
 ```
 
 ### Help
