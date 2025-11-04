@@ -3,17 +3,8 @@
 #include <cstdint>
 #include <string>
 #include <variant>
-#include <fmt/format.h>
 
 namespace ant::ctl {
-    template<class... Ts>
-    struct Overloaded : Ts... {
-        using Ts::operator()...;
-    };
-
-    template<class... Ts>
-    Overloaded(Ts...) -> Overloaded<Ts...>;
-
     struct Command {
     };
 
@@ -77,33 +68,3 @@ namespace ant::ctl {
         StopPrometheus
     >;
 }
-
-template<typename T>
-    requires std::is_base_of_v<ant::ctl::Command, T>
-struct fmt::formatter<T> {
-    template<typename ParseContext>
-    constexpr auto parse(ParseContext &ctx) const {
-        return ctx.begin();
-    }
-
-    template<typename FormatContext>
-    auto format(const T &val, FormatContext &ctx) const {
-        constexpr std::string_view desc{T::kDescription};
-        return fmt::format_to(ctx.out(), "{}", desc);
-    }
-};
-
-template<typename... Ts>
-struct fmt::formatter<std::variant<Ts...> > {
-    template<typename ParseContext>
-    constexpr auto parse(ParseContext &ctx) const {
-        return ctx.begin();
-    }
-
-    template<typename FormatContext>
-    auto format(const std::variant<Ts...> &var, FormatContext &ctx) const {
-        return std::visit([&ctx](auto const &v) {
-            return fmt::format_to(ctx.out(), "{}", v);
-        }, var);
-    }
-};

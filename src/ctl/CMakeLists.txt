@@ -3,10 +3,15 @@ cmake_minimum_required(VERSION 3.26.0 FATAL_ERROR)
 # main executable
 add_executable(${PROJECT_NAME}
         main.cpp
+        prometheus.cpp
 )
 
 target_include_directories(${PROJECT_NAME} PUBLIC
-        ${CMAKE_CURRENT_SOURCE_DIR}
+        ${CMAKE_SOURCE_DIR}/src
+)
+
+target_include_directories(${PROJECT_NAME} PRIVATE
+        ${CMAKE_SOURCE_DIR}/src/ctl
 )
 
 if (UNIX)
@@ -15,9 +20,7 @@ if (UNIX)
 endif ()
 
 target_link_libraries(${PROJECT_NAME} PUBLIC
-        Boost::system
-        fmt::fmt-header-only
-        argparse::argparse
+        ${PROJECT_NAME}-core
 )
 
 include(AntDefines REQUIRED)

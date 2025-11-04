@@ -52,6 +52,7 @@ find_package(PkgConfig REQUIRED)
 pkg_check_modules(LIBBPF REQUIRED IMPORTED_TARGET libbpf)
 pkg_check_modules(ZLIB REQUIRED IMPORTED_TARGET zlib)
 
+add_subdirectory(src/core)
 add_subdirectory(src/ctl)
 add_subdirectory(src/filter)
 add_subdirectory(src/kernel-module)
