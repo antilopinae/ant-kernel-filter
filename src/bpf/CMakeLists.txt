@@ -13,7 +13,6 @@ endif ()
 
 # eBPF resources
 set(BPF_NAME "ant-bpf")
-set(BPF_TARGET_NAME ${BPF_NAME})
 
 set(BPF_BINARY_DIR ${BPF_NAME}-dir)
 set(BPF_BINARY_PATH ${CMAKE_CURRENT_BINARY_DIR}/${BPF_BINARY_DIR})

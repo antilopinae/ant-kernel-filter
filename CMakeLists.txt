@@ -53,6 +53,12 @@ find_package(PkgConfig REQUIRED)
 pkg_check_modules(LIBBPF REQUIRED IMPORTED_TARGET libbpf)
 pkg_check_modules(ZLIB REQUIRED IMPORTED_TARGET zlib)
 
+set(CORE_TARGET_NAME ant-core CACHE STRING "Ant-Core target name" FORCE)
+set(CTL_TARGET_NAME ant-ctl CACHE STRING "Ant-Ctl target name" FORCE)
+set(FILTER_TARGET_NAME ant-filter CACHE STRING "Ant-Filter module target name" FORCE)
+set(KERNEL_TARGET_NAME ant-kernel CACHE STRING "Ant-Kernel module target name" FORCE)
+set(BPF_TARGET_NAME ant-bpf CACHE STRING "Ant-Bpf module target name" FORCE)
+
 add_subdirectory(src/core)
 add_subdirectory(src/ctl)
 add_subdirectory(src/filter)

@@ -106,23 +106,30 @@ add_custom_target(kernel_module_clean
 message(STATUS "Kernel source/headers dir used: ${KERNEL_SRC_DIR}")
 message(STATUS "Built module output expected at: ${MODULE_OUT}")
 
-add_executable(${PROJECT_NAME}-kernel
+add_executable(${KERNEL_TARGET_NAME}
         main.cpp
 )
 
-target_include_directories(${PROJECT_NAME}-kernel
+target_include_directories(${KERNEL_TARGET_NAME}
         PUBLIC
         ${CMAKE_SOURCE_DIR}
 )
 
-target_include_directories(${PROJECT_NAME}-kernel
+target_include_directories(${KERNEL_TARGET_NAME}
         PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}
         ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
-target_compile_options(${PROJECT_NAME}-kernel PRIVATE -Wall -Wextra -Wno-unused-parameter)
+if (UNIX)
+    target_link_options(${FILTER_TARGET_NAME} PUBLIC -static)
+    target_link_options(${FILTER_TARGET_NAME} PUBLIC -static-libgcc -static-libstdc++)
+endif ()
 
-add_dependencies(${PROJECT_NAME}-kernel kernel_module_install)
+target_link_libraries(${KERNEL_TARGET_NAME} PUBLIC
+        ${CORE_TARGET_NAME}
+)
 
-target_add_ant_global_definitions(${PROJECT_NAME}-kernel)
+add_dependencies(${KERNEL_TARGET_NAME} kernel_module_install)
+
+target_add_ant_global_definitions(${KERNEL_TARGET_NAME})
