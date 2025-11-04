@@ -9,7 +9,8 @@
     "fmt",
     "argparse",
     "prometheus-cpp",
-    "gtest"
+    "gtest",
+    "cunit"
   ],
   "vcpkg-configuration": {
     "overlay-ports": [
