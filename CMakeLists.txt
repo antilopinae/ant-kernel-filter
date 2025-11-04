@@ -47,6 +47,7 @@ find_package(Boost REQUIRED COMPONENTS system asio)
 find_package(fmt REQUIRED)
 find_package(argparse CONFIG REQUIRED)
 find_package(nlohmann_json CONFIG REQUIRED)
+find_package(prometheus-cpp CONFIG REQUIRED)
 
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(LIBBPF REQUIRED IMPORTED_TARGET libbpf)

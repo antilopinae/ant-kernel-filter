@@ -21,6 +21,9 @@ endif ()
 
 target_link_libraries(${PROJECT_NAME} PUBLIC
         ${PROJECT_NAME}-core
+        prometheus-cpp::core
+        prometheus-cpp::pull
+        prometheus-cpp::util
 )
 
 include(AntDefines REQUIRED)

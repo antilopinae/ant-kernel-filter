@@ -25,6 +25,7 @@ target_link_libraries(${PROJECT_NAME}-core PUBLIC
         fmt::fmt-header-only
         argparse::argparse
         nlohmann_json::nlohmann_json
+        pthread
 )
 
 include(AntDefines REQUIRED)
