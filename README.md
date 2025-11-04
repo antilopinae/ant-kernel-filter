@@ -15,7 +15,7 @@ sudo ./ant-kernel-filter
 ### General format:
 
 ```bash
-sudo ./ant-kernel-filter <LAB_COMMAND> <SUBCOMMAND> [OPTIONS...]
+sudo ./ant-kernel-filter <COMMAND> <SUBCOMMAND> [OPTIONS...]
 ```
 
 ### Help
@@ -29,31 +29,38 @@ Print help:
 ## Requirements
 
 * **Build Tools:**
-    * A C++23 compliant compiler (GCC 13+ or Clang 16+)
-    * `CMake` (version 3.23+)
+
+* A C++23 compliant compiler (GCC 13+ or Clang 16+)
+* `CMake` (version 3.23+)
+
 * **Dependencies:**
-    * All dependencies are managed via `vcpkg` and are installed automatically during the build process
+
+* All dependencies are managed via `vcpkg` and are installed automatically during the build process
 
 ## Building the Project
 
-1. **Clone the repository with submodules:**
-   ```bash
-   git clone --recursive https://github.com/antilopinae/ant-kernel-filter
-   cd ant-kernel-filter
-   ```
+**Clone the repository with submodules:**
 
-2. **Configure and build the project:**
-   The `utils/cmake-build.sh` script automates this process
-   ```bash
-   bash ./utils/cmake-build.sh
-   cd build
-   ```
-   Alternatively, you can run the commands manually:
-   ```bash
-   # Configure the project, specifying the static triplet
-   cmake -B build -S .
+```bash
+git clone --recursive https://github.com/antilopinae/ant-kernel-filter
+cd ant-kernel-filter
+```
 
-   # Build the project
-   cmake --build build -j$(nproc)
-   cd build
-   ```
+**Configure and build the project:**
+
+The `utils/cmake-build.sh` script automates this process
+```bash
+bash ./utils/cmake-build.sh
+cd build
+```
+
+Alternatively, you can run the commands manually:
+
+```bash
+# Configure the project, specifying the static triplet
+cmake -B build -S .
+
+# Build the project
+cmake --build build -j$(nproc)
+cd build
+```

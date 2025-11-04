@@ -16,7 +16,7 @@
 
 #include <linux/types.h>
 
-#include <bpf/event.h>
+#include <ant-bpf/event.h>
 
 #include BPF_SKEL_HEADER
 
@@ -26,7 +26,7 @@
 #define ANT_BPF_PROG_NAME ant_bpf_bpf
 #define ANT_BPF_FUNC_CONCAT(name) ANT_CONCAT(ANT_BPF_PROG_NAME, __, name)
 
-namespace ProcMon {
+namespace ant::bpf {
     class SignalGuard {
     private:
         static inline std::atomic<bool> running{false};
@@ -202,12 +202,12 @@ namespace ProcMon {
         EventBuffer eventBuffer;
         std::string dumpFilename;
     };
-} // namespace ProcMon
+}
 
 int main(int argc, char *argv[]) {
     std::string outputFile = (argc > 1) ? argv[1] : "processes.json";
     try {
-        ProcMon::App app{std::move(outputFile)};
+        ant::bpf::App app{std::move(outputFile)};
         app.run();
         return 0;
     } catch (const std::exception &ex) {

@@ -6,6 +6,7 @@ if (NOT SHELL OR NOT CLANG OR NOT BPFTOOL)
     message(FATAL_ERROR
             "\n"
             "Please specify toolset in cmake/CheckToolsetBpf.cmake.\n"
+            "You can specify it automatically with CLANG_EXECUTABLE, BPFTOOL_EXECUTABLE, SHELL_EXECUTABLE variables\n"
     )
 endif ()
 
@@ -54,8 +55,8 @@ add_custom_target(generate_and_compile_bpf ALL DEPENDS ${BPF_SKEL_PATH})
 # main executable
 add_executable(${BPF_TARGET_NAME} main.cpp)
 
-target_include_directories(${BPF_TARGET_NAME} PRIVATE
-        ${CMAKE_CURRENT_BINARY_DIR}
+target_include_directories(${BPF_TARGET_NAME} PUBLIC
+        ${CMAKE_CURRENT_SOURCE_DIR}
         ${CMAKE_CURRENT_SOURCE_DIR}/include
         ${BPF_BINARY_PATH}
 )
