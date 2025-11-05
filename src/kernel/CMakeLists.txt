@@ -60,7 +60,7 @@ if (USE_LOCAL_KERNEL_BUILD_DIR)
     endif ()
 endif ()
 
-set(MODULE_NAME kernel_module)
+set(MODULE_NAME kernel-module)
 set(MODULE_SRC ${CMAKE_CURRENT_SOURCE_DIR}/${MODULE_NAME}.c)
 set(MODULE_OUT ${CMAKE_CURRENT_BINARY_DIR}/${MODULE_NAME}.ko)
 
@@ -78,7 +78,7 @@ clean:
 \t\$(MAKE) -C \$(KDIR) M=\$(PWD) clean
 ")
 
-add_custom_target(kernel_module_build
+add_custom_target(kernel-module-build
         COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_CURRENT_BINARY_DIR}
         COMMAND ${CMAKE_COMMAND} -E copy_if_different
         ${MODULE_SRC}
@@ -89,17 +89,17 @@ add_custom_target(kernel_module_build
 )
 
 if (NOT USE_LOCAL_KERNEL_BUILD_DIR)
-    add_dependencies(kernel_module_build kernel-download-src)
+    add_dependencies(kernel-module-build kernel-download-src)
 endif ()
 
-add_custom_target(kernel_module_install ALL
+add_custom_target(kernel-module-install ALL
         COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}/modules
         COMMAND ${CMAKE_COMMAND} -E copy_if_different ${MODULE_OUT} ${CMAKE_BINARY_DIR}/modules/
-        DEPENDS kernel_module_build
+        DEPENDS kernel-module-build
         COMMENT "Copying ${MODULE_OUT} to ${CMAKE_BINARY_DIR}/modules/"
 )
 
-add_custom_target(kernel_module_clean
+add_custom_target(kernel-module-clean
         COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_CURRENT_BINARY_DIR} make -f Makefile clean
 )
 
@@ -107,7 +107,8 @@ message(STATUS "Kernel source/headers dir used: ${KERNEL_SRC_DIR}")
 message(STATUS "Built module output expected at: ${MODULE_OUT}")
 
 add_executable(${KERNEL_TARGET_NAME}
-        main.cpp
+        kernel-module.cpp
+        mmap-reader.cpp
 )
 
 target_include_directories(${KERNEL_TARGET_NAME}
@@ -122,14 +123,15 @@ target_include_directories(${KERNEL_TARGET_NAME}
 )
 
 if (UNIX)
-    target_link_options(${FILTER_TARGET_NAME} PUBLIC -static)
-    target_link_options(${FILTER_TARGET_NAME} PUBLIC -static-libgcc -static-libstdc++)
+    target_link_options(${KERNEL_TARGET_NAME} PUBLIC -static)
+    target_link_options(${KERNEL_TARGET_NAME} PUBLIC -static-libgcc -static-libstdc++)
 endif ()
 
 target_link_libraries(${KERNEL_TARGET_NAME} PUBLIC
         ${CORE_TARGET_NAME}
+        ${CORE_LOG_TARGET_NAME}
 )
 
-add_dependencies(${KERNEL_TARGET_NAME} kernel_module_install)
+add_dependencies(${KERNEL_TARGET_NAME} kernel-module-install)
 
 target_add_ant_global_definitions(${KERNEL_TARGET_NAME})
