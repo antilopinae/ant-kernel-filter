@@ -1,3 +1,5 @@
+message(FATAL_ERROR "CPP does not working now")
+
 if (NOT DEFINED KERNEL_HEADERS_DIR)
     message(FATAL_ERROR "KERNEL_SRC_DIR Not defined.")
 endif ()

@@ -14,12 +14,12 @@ add_library(${KERNEL_TARGET_NAME} STATIC
 target_include_directories(${KERNEL_TARGET_NAME}
         PUBLIC
         ${CMAKE_SOURCE_DIR}/src
+        ${CMAKE_CURRENT_SOURCE_DIR}/module/include
 )
 
 target_include_directories(${KERNEL_TARGET_NAME}
         PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}
-        ${CMAKE_CURRENT_SOURCE_DIR}/module/include
 )
 
 if (UNIX)

@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.26.0 FATAL_ERROR)
 
+message(FATAL_ERROR "CPP does not working now")
+
 function(generate_linker_scripts BINARY_DIRECTORY)
     # Generate a script to support constructors
     file(WRITE ${BINARY_DIRECTORY}/init-array.lds

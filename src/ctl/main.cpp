@@ -2,9 +2,10 @@
 #include <ctl/formatters/commands_formatter.hpp>
 #include <core/formatters/variant_formatter.hpp>
 #include <core/overloaded.hpp>
+#include <core/formatters/error_formatter.hpp>
 #include <log/log.hpp>
 #include <kernel/kernel-module.hpp>
-#include <kernel/module/include/ant-kernel/headers.h>
+#include <ant-kernel/headers.h>
 
 #include <expected>
 #include <filesystem>
@@ -12,7 +13,6 @@
 
 #include <argparse/argparse.hpp>
 #include <fmt/format.h>
-#include <core/formatters/error_formatter.hpp>
 
 int main(int argc, char *argv[]) {
     argparse::ArgumentParser main_parser(ANT_PROGRAM_NAME, "0.1.0", argparse::default_arguments::help);
