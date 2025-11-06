@@ -13,6 +13,8 @@
 #include <linux/io.h>
 
 #include <ant-kernel/headers.h>
+#include <ant-kernel/utils.h>
+#include <ant-kernel/greeter.h>
 
 MODULE_LICENSE(ANT_KERNEL_MODULE_LICENSE);
 MODULE_AUTHOR(ANT_KERNEL_MODULE_AUTHOR);
@@ -146,7 +148,8 @@ static int __init kernel_module_init(void) {
     atomic_set(&mmap_buffer->read_idx, 0);
     atomic_set(&mmap_buffer->num_messages, 0);
 
-    printk(KERN_INFO "%s: Module loaded.\n", ANT_KERNEL_MODULE_NAME);
+    ant_print_message(ANT_KERNEL_MODULE_NAME, "Module loaded.");
+    ant_cpp_greet("Kernel");
 
     send_mmap_message("Hello from kernel module init!");
     msleep(100);

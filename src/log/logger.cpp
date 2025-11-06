@@ -16,7 +16,7 @@ namespace ant::log {
 
         // Initialize syslog
         Logger::Init();
-        syslog(LOG_DEBUG, fmt::format("{}", message));
+        syslog(LOG_DEBUG, message.c_str());
     }
 
     template<typename T>
@@ -25,8 +25,12 @@ namespace ant::log {
 
         // Initialize syslog
         Logger::Init();
-        syslog(LOG_ERR, fmt::format("{}", message));
+        syslog(LOG_ERR, message.c_str());
     }
+
+    template void Debug<std::string>(const std::string &message);
+
+    template void Error<std::string>(const std::string &message);
 
     auto Logger::Init() -> void {
         static auto p = [] -> bool {
