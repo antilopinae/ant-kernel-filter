@@ -1,7 +1,6 @@
 cmake_minimum_required(VERSION 3.26.0 FATAL_ERROR)
 
 include(ExternalProject)
-include(AntGlobalDefinitions REQUIRED)
 
 set(MODULE_NAME ant-kernel CACHE STRING "Kernel module name" FORCE)
 
@@ -34,6 +33,6 @@ target_link_libraries(${KERNEL_TARGET_NAME} PUBLIC
 )
 
 # Building kernel module
-add_dependencies(${KERNEL_TARGET_NAME} kernel-module-install)
+add_dependencies(${KERNEL_TARGET_NAME} ant-kernel-module)
 
 target_add_ant_global_definitions(${KERNEL_TARGET_NAME})

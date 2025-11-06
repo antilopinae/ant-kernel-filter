@@ -1,7 +1,5 @@
 cmake_minimum_required(VERSION 3.26.0 FATAL_ERROR)
 
-include(AntGlobalDefinitions REQUIRED)
-
 add_library(${CORE_LOG_TARGET_NAME} STATIC
         logger.cpp
 )
