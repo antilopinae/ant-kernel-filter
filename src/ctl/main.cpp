@@ -2,14 +2,17 @@
 #include <ctl/formatters/commands_formatter.hpp>
 #include <core/formatters/variant_formatter.hpp>
 #include <core/overloaded.hpp>
+#include <log/log.hpp>
+#include <kernel/kernel-module.hpp>
+#include <kernel/module/include/ant-kernel/headers.h>
 
 #include <expected>
 #include <filesystem>
 #include <iostream>
 
 #include <argparse/argparse.hpp>
-#include <boost/system/error_code.hpp>
-#include <fmt/core.h>
+#include <fmt/format.h>
+#include <core/formatters/error_formatter.hpp>
 
 int main(int argc, char *argv[]) {
     argparse::ArgumentParser main_parser(ANT_PROGRAM_NAME, "0.1.0", argparse::default_arguments::help);
@@ -141,38 +144,58 @@ int main(int argc, char *argv[]) {
 
     // Some Actions here
     const auto visit = ant::core::Overloaded{
-        [](const ant::ctl::LoadEbpfModule &c) -> std::expected<void, boost::system::error_code> {
+        [](const ant::ctl::LoadEbpfModule &c) -> std::expected<void, ant::core::Error> {
             // something do
             return {};
         },
-        [](const ant::ctl::UnloadEbpfModule &c) -> std::expected<void, boost::system::error_code> {
+        [](const ant::ctl::UnloadEbpfModule &c) -> std::expected<void, ant::core::Error> {
             return {};
         },
-        [](const ant::ctl::StatusEbpfModule &c) -> std::expected<void, boost::system::error_code> {
+        [](const ant::ctl::StatusEbpfModule &c) -> std::expected<void, ant::core::Error> {
             return {};
         },
-        [](const ant::ctl::LoadKernelModule &c) -> std::expected<void, boost::system::error_code> {
+        [](const ant::ctl::LoadKernelModule &c) -> std::expected<void, ant::core::Error> {
+            std::string path = "../../modules/" ANT_KERNEL_MODULE_NAME ".ko";
+
+            if (!std::filesystem::exists(path)) {
+                ant::log::Debug(fmt::format("Path {} not exists!", path));
+            }
+
+            auto module = ant::kernel::KernelModule(
+                ANT_KERNEL_MODULE_NAME, path);
+            auto result = module.Load();
+            if (!result) {
+                return std::unexpected{result.error()};
+            }
+
             return {};
         },
-        [](const ant::ctl::UnloadKernelModule &c) -> std::expected<void, boost::system::error_code> {
+        [](const ant::ctl::UnloadKernelModule &c) -> std::expected<void, ant::core::Error> {
+            auto module = ant::kernel::KernelModule(ANT_KERNEL_MODULE_NAME, "");
+
+            auto result = module.Unload();
+            if (!result) {
+                return std::unexpected{result.error()};
+            }
+
             return {};
         },
-        [](const ant::ctl::StatusKernelModule &c) -> std::expected<void, boost::system::error_code> {
+        [](const ant::ctl::StatusKernelModule &c) -> std::expected<void, ant::core::Error> {
             return {};
         },
-        [](const ant::ctl::FilterLoad &c) -> std::expected<void, boost::system::error_code> {
+        [](const ant::ctl::FilterLoad &c) -> std::expected<void, ant::core::Error> {
             return {};
         },
-        [](const ant::ctl::FilterUnload &c) -> std::expected<void, boost::system::error_code> {
+        [](const ant::ctl::FilterUnload &c) -> std::expected<void, ant::core::Error> {
             return {};
         },
-        [](const ant::ctl::StatusFilterModule &c) -> std::expected<void, boost::system::error_code> {
+        [](const ant::ctl::StatusFilterModule &c) -> std::expected<void, ant::core::Error> {
             return {};
         },
-        [](const ant::ctl::StartPrometheus &c) -> std::expected<void, boost::system::error_code> {
+        [](const ant::ctl::StartPrometheus &c) -> std::expected<void, ant::core::Error> {
             return {};
         },
-        [](const ant::ctl::StopPrometheus &c) -> std::expected<void, boost::system::error_code> {
+        [](const ant::ctl::StopPrometheus &c) -> std::expected<void, ant::core::Error> {
             return {};
         }
     };
@@ -182,7 +205,7 @@ int main(int argc, char *argv[]) {
             fmt::print("{}\n", cmd.value());
 
             if (auto result = std::visit(visit, cmd.value()); !result) {
-                fmt::print("Failed with error: {}\n", result.error().message());
+                std::cout << fmt::format("Failed with error: {}\n", result.error()) << std::endl;
                 return 1;
             }
         } else {

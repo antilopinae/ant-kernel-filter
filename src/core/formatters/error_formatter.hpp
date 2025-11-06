@@ -1,6 +1,6 @@
 #pragma once
 
-#include <error.hpp>
+#include <core/error.hpp>
 
 template<>
 struct fmt::formatter<ant::core::Error> {
@@ -11,6 +11,6 @@ struct fmt::formatter<ant::core::Error> {
 
     template<typename FormatContext>
     auto format(const ant::core::Error &var, FormatContext &ctx) const {
-            return fmt::format_to(ctx.out(), "{}", v.What());
+        return fmt::format_to(ctx.out(), "{}", var.What());
     }
 };

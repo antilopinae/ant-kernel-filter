@@ -1,7 +1,5 @@
 cmake_minimum_required(VERSION 3.26.0 FATAL_ERROR)
 
-include(AntGlobalDefinitions REQUIRED)
-
 # main executable
 add_executable(${CTL_TARGET_NAME}
         main.cpp
@@ -13,7 +11,7 @@ target_include_directories(${CTL_TARGET_NAME} PUBLIC
 )
 
 target_include_directories(${CTL_TARGET_NAME} PRIVATE
-        ${CMAKE_SOURCE_DIR}/src/ctl
+        ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
 if (UNIX)
@@ -23,6 +21,9 @@ endif ()
 
 target_link_libraries(${CTL_TARGET_NAME} PUBLIC
         ${CORE_TARGET_NAME}
+        ${CORE_LOG_TARGET_NAME}
+        ${KERNEL_TARGET_NAME}
+        ${FILTER_TARGET_NAME}
         prometheus-cpp::core
         prometheus-cpp::pull
         prometheus-cpp::util

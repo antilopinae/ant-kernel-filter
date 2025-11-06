@@ -1,7 +1,5 @@
 cmake_minimum_required(VERSION 3.26.0 FATAL_ERROR)
 
-include(AntGlobalDefinitions REQUIRED)
-
 add_library(${CORE_TARGET_NAME} STATIC
         error.cpp
 )
@@ -11,7 +9,7 @@ target_include_directories(${CORE_TARGET_NAME} PUBLIC
 )
 
 target_include_directories(${CORE_TARGET_NAME} PRIVATE
-        ${CMAKE_SOURCE_DIR}/src/core
+        ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
 if (UNIX)
