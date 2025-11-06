@@ -11,7 +11,7 @@ add_library(${FILTER_TARGET_NAME} STATIC
 
 target_include_directories(${FILTER_TARGET_NAME}
         PUBLIC
-        ${CMAKE_SOURCE_DIR}
+        ${CMAKE_SOURCE_DIR}/src
 )
 
 target_include_directories(${FILTER_TARGET_NAME}
@@ -28,6 +28,8 @@ endif ()
 
 target_link_libraries(${FILTER_TARGET_NAME} PUBLIC
         ${CORE_TARGET_NAME}
+        ${CORE_LOG_TARGET_NAME}
+        ${KERNEL_TARGET_NAME}
 )
 
 target_add_ant_global_definitions(${FILTER_TARGET_NAME})

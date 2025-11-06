@@ -1,19 +1,18 @@
 cmake_minimum_required(VERSION 3.26.0 FATAL_ERROR)
 
 add_library(${CORE_LOG_TARGET_NAME} STATIC
-        logger.cpp
+        log.cpp
 )
 
 target_include_directories(${CORE_LOG_TARGET_NAME}
         PUBLIC
-        ${CMAKE_SOURCE_DIR}
+        ${CMAKE_SOURCE_DIR}/src
 )
 
 target_include_directories(${CORE_LOG_TARGET_NAME}
         PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}
         ${CMAKE_CURRENT_SOURCE_DIR}/include
-        ${CMAKE_CURRENT_SOURCE_DIR}/lib
 )
 
 if (UNIX)

@@ -8,12 +8,12 @@ add_subdirectory(module)
 
 add_library(${KERNEL_TARGET_NAME} STATIC
         kernel-module.cpp
-        mmap-reader.cpp
+        mmap.cpp
 )
 
 target_include_directories(${KERNEL_TARGET_NAME}
         PUBLIC
-        ${CMAKE_SOURCE_DIR}
+        ${CMAKE_SOURCE_DIR}/src
 )
 
 target_include_directories(${KERNEL_TARGET_NAME}

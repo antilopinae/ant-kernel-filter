@@ -6,6 +6,14 @@
 #include <core/error.hpp>
 
 namespace ant::kernel {
+    namespace detail {
+        static auto CreateMap() -> std::expected<void, core::Error>;
+
+        static auto CloseMap() -> std::expected<void, core::Error>;
+
+        static auto ReadMap() -> std::expected<void, core::Error>;
+    }
+
     enum class KernelModuleStatus: uint8_t {
         kNotLoaded = 0,
         kLoaded = 1,
@@ -13,9 +21,7 @@ namespace ant::kernel {
 
     class KernelModule {
     public:
-        KernelModule(std::string module_path, std::string module_name) noexcept;
-
-        static auto CreateMap() -> std::expected<void, core::Error>;
+        KernelModule(std::string module_name, std::string module_path) noexcept;
 
         auto Load() -> std::expected<KernelModuleStatus, core::Error>;
 
