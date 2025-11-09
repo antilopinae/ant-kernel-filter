@@ -75,7 +75,3 @@ module_init(procfs1_init);
 module_exit(procfs1_exit);
 
 MODULE_LICENSE("GPL");
-
-
-
-

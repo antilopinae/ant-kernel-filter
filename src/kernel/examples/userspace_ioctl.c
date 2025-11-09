@@ -32,7 +32,7 @@ int ioctl_get_msg(int file_desc)
 
     char message[100] = { 0 };
 
-   /* Warning - this is dangerous because we don't tell
+    /* Warning - this is dangerous because we don't tell
    * the kernel how far it's allowed to write, so it
    * might overflow the buffer. In a real production
    * program, we would have used two ioctls - one to tell
@@ -105,8 +105,8 @@ int main(void)
     close(file_desc);
     return 0;
 
-    error:
-        close(file_desc);
+error:
+    close(file_desc);
 
     exit(EXIT_FAILURE);
 }

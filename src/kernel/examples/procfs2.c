@@ -102,4 +102,3 @@ module_init(procfs2_init);
 module_exit(procfs2_exit);
 
 MODULE_LICENSE("GPL");
-

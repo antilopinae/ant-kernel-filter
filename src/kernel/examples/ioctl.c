@@ -48,52 +48,52 @@ static long test_ioctl_ioctl(struct file *filp, unsigned int cmd,
     memset(&data, 0, sizeof(data));
 
     switch (cmd) {
-        case IOCTL_VALSET:
-            if (copy_from_user(&data, (int __user *)arg, sizeof(data))) {
-                retval = -EFAULT;
-                goto done;
-            }
+    case IOCTL_VALSET:
+        if (copy_from_user(&data, (int __user *)arg, sizeof(data))) {
+            retval = -EFAULT;
+            goto done;
+        }
 
-            pr_alert("IOCTL set val:%x .\n", data.val);
+        pr_alert("IOCTL set val:%x .\n", data.val);
 
-            write_lock(&ioctl_data->lock);
+        write_lock(&ioctl_data->lock);
 
-            ioctl_data->val = data.val;
+        ioctl_data->val = data.val;
 
-            write_unlock(&ioctl_data->lock);
+        write_unlock(&ioctl_data->lock);
 
-            break;
+        break;
 
-        case IOCTL_VALGET:
-            read_lock(&ioctl_data->lock);
+    case IOCTL_VALGET:
+        read_lock(&ioctl_data->lock);
 
-            val = ioctl_data->val;
+        val = ioctl_data->val;
 
-            read_unlock(&ioctl_data->lock);
+        read_unlock(&ioctl_data->lock);
 
-            data.val = val;
+        data.val = val;
 
-            if (copy_to_user((int __user *)arg, &data, sizeof(data))) {
-                retval = -EFAULT;
-                goto done;
-            }
+        if (copy_to_user((int __user *)arg, &data, sizeof(data))) {
+            retval = -EFAULT;
+            goto done;
+        }
 
-            break;
+        break;
 
-        case IOCTL_VALGET_NUM:
-            retval = __put_user(ioctl_num, (int __user *)arg);
-            break;
+    case IOCTL_VALGET_NUM:
+        retval = __put_user(ioctl_num, (int __user *)arg);
+        break;
 
-        case IOCTL_VALSET_NUM:
-            ioctl_num = arg;
-            break;
+    case IOCTL_VALSET_NUM:
+        ioctl_num = arg;
+        break;
 
-        default:
-            retval = -ENOTTY;
+    default:
+        retval = -ENOTTY;
     }
 
-    done:
-        return retval;
+done:
+    return retval;
 }
 
 static ssize_t test_ioctl_read(struct file *filp, char __user *buf,
@@ -120,8 +120,8 @@ static ssize_t test_ioctl_read(struct file *filp, char __user *buf,
 
     retval = count;
 
-    out:
-        return retval;
+out:
+    return retval;
 }
 
 static int test_ioctl_close(struct inode *inode, struct file *filp)
@@ -206,4 +206,3 @@ module_exit(ioctl_exit);
 
 MODULE_LICENSE("GPL");
 MODULE_DESCRIPTION("This is test_ioctl module");
-

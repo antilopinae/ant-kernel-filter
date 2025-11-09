@@ -77,7 +77,6 @@ static ssize_t device_read(struct file *file, /* see include/linux/fs.h   */
 
     /* Actually put the data into the buffer */
     while (length && *message_ptr) {
-
         /* Because the buffer is in the user data segment, not the kernel
          * data segment, assignment would not work. Instead, we have to
          * use put_user which copies data from the kernel data segment to
@@ -139,7 +138,6 @@ device_ioctl(struct file *file, /* ditto */
     /* Switch according to the ioctl called */
     switch (ioctl_num) {
     case IOCTL_SET_MSG: {
-
         /* Receive a pointer to a message (in user space) and set that to
          * be the device's message. Get the parameter given to ioctl by
          * the process.
