@@ -14,6 +14,7 @@ struct ioctl_arg {
 };
 
 /* Documentation/userspace-api/ioctl/ioctl-number.rst */
+// https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/Documentation/userspace-api/ioctl/ioctl-number.rst
 #define IOC_MAGIC '\x66'
 #define IOCTL_VALSET _IOW(IOC_MAGIC, 0, struct ioctl_arg)
 #define IOCTL_VALGET _IOR(IOC_MAGIC, 1, struct ioctl_arg)
