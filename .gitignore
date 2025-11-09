@@ -39,7 +39,6 @@ vcpkg/installed/
 **/CMakeFiles
 **/CMakeScripts
 **/Testing
-**/Makefile
 **/_deps
 
 # Prerequisites
