@@ -1,7 +1,6 @@
 cmake_minimum_required(VERSION 3.26.0 FATAL_ERROR)
 
-list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
-list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/compilers")
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/ant-cmake")
 
 include(CCache OPTIONAL)
 include(NoInSourceBuilds OPTIONAL)
@@ -119,7 +118,7 @@ add_subdirectory(src/ctl)
 add_subdirectory(src/filter)
 
 #if (ANT_ENABLE_KERNEL)
-include(SetupKernelHeadersDir REQUIRED)
+add_subdirectory(ant-kernel)
 add_subdirectory(src/kernel)
 #endif ()
 
