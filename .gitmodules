@@ -1,3 +1,9 @@
 [submodule "vcpkg"]
 	path = vcpkg
 	url = https://github.com/microsoft/vcpkg.git
+[submodule "ant-cmake"]
+	path = ant-cmake
+	url = https://github.com/antilopinae/ant-cmake.git
+[submodule "ant-kernel"]
+	path = ant-kernel
+	url = https://github.com/antilopinae/ant-kernel.git
